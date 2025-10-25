@@ -37,10 +37,3 @@ def somar_por_letra(lista):
     letras_ordenadas = ordenar_resultado(soma_por_letra)
     resultado_final = formatar_resultado(soma_por_letra, letras_ordenadas)
     return resultado_final
-
-
-# Exemplo de uso
-if __name__ == "__main__":
-    entrada = ["D:7", "A:1", "B:0", "A:11", "C:-3", "B:1"]
-    saida = somar_por_letra(entrada)
-    print(saida)  # ['A:12', 'B:1', 'C:-3', 'D:7']
