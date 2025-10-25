@@ -1,40 +1,46 @@
 from collections import defaultdict
 
+def separar_e_somar(lista):
+    """
+    Recebemos aqui uma lista de strings no formato 'Letra:Valor' e retornamos
+    um dicionário com a soma dos valores por letra.
+    """
+    resultado = defaultdict(int)
+    for item in lista:
+        letra, numero = item.split(":")
+        resultado[letra] += int(numero)
+    return dict(resultado)
+
+
+def ordenar_resultado(dicionario):
+    """
+    Recebemos um dicionário e retornamos uma lista das chaves
+    ordenadas em ordem alfabética.
+    """
+    return sorted(dicionario.keys())
+
+
+def formatar_resultado(dicionario, letras_ordenadas):
+    """
+    Recebemos aqui o dicionário e a lista de letras ordenadas e retornamos
+    a lista final no formato 'Letra:Soma'.
+    """
+    return [f"{letra}:{dicionario[letra]}" for letra in letras_ordenadas]
+
+
 def somar_por_letra(lista):
     """
-    Recebe uma lista de strings no formato 'Letra:Valor' e retorna um dicionário
-    com a soma dos valores para cada letra.
+    Função principal que combina as funções auxiliares
+    e retorna a lista final ordenada.
     """
-
-    # Cria um dicionário que já começa cada letra com 0
-    # Assim podemos somar sem precisar verificar se a letra existe
-    resultado = defaultdict(int)
-
-    # Vamos percorrer cada item da lista
-    for item in lista:
-        # Cada item vem no formato "Letra:Numero", então a gente separa por ":"
-        letra, numero = item.split(":")
-
-        # Convertemos o num de string para inteiro e somamos ao total da letra
-        resultado[letra] += int(numero)
-        # Se a letra ainda não existia no dicionário, o defaultdict cria com 0
-        # e já soma o valor atual automaticamente. Nesse caso o deafult dict atua como um hashmap de fato,
-        # então não precisamos validar se a letra existe ou não, ele faz isso "automagicamente"
-
-        # Agora vamos organizar as letras em ordem alfabética, a função sorted do python faz isso.
-        # pode ser usado com qualquer tipo de dado
-        letras_ordenadas = sorted(resultado.keys())
-
-        # Montamos a lista final no formato "Letra:Soma", seguindo a ordem alfabética
-        resultado_formatado = [f"{letra}:{resultado[letra]}" for letra in letras_ordenadas]
-
-    return resultado_formatado
+    soma_por_letra = separar_e_somar(lista)
+    letras_ordenadas = ordenar_resultado(soma_por_letra)
+    resultado_final = formatar_resultado(soma_por_letra, letras_ordenadas)
+    return resultado_final
 
 
-# Teste provisório:
+# Exemplo de uso
 if __name__ == "__main__":
     entrada = ["D:7", "A:1", "B:0", "A:11", "C:-3", "B:1"]
     saida = somar_por_letra(entrada)
-
-    # Imprime a lista final, agora ordenada
-    print(saida)  # Saída esperada: ['A:12', 'B:1', 'C:-3', 'D:7']
+    print(saida)  # ['A:12', 'B:1', 'C:-3', 'D:7']
