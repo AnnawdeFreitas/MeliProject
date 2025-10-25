@@ -21,13 +21,20 @@ def somar_por_letra(lista):
         # e já soma o valor atual automaticamente. Nesse caso o deafult dict atua como um hashmap de fato,
         # então não precisamos validar se a letra existe ou não, ele faz isso "automagicamente"
 
-    # Por enquanto, retornamos o resultado como um dicionário comum
-    return dict(resultado)
+        # Agora vamos organizar as letras em ordem alfabética, a função sorted do python faz isso.
+        # pode ser usado com qualquer tipo de dado
+        letras_ordenadas = sorted(resultado.keys())
+
+        # Montamos a lista final no formato "Letra:Soma", seguindo a ordem alfabética
+        resultado_formatado = [f"{letra}:{resultado[letra]}" for letra in letras_ordenadas]
+
+    return resultado_formatado
+
 
 # Teste provisório:
 if __name__ == "__main__":
     entrada = ["D:7", "A:1", "B:0", "A:11", "C:-3", "B:1"]
     saida = somar_por_letra(entrada)
 
-    # Aqui a gente imprime o resultado para ver se a soma está correta
-    print(saida)  # Saída esperada: {'D': 7, 'A': 12, 'B': 1, 'C': -3}
+    # Imprime a lista final, agora ordenada
+    print(saida)  # Saída esperada: ['A:12', 'B:1', 'C:-3', 'D:7']
